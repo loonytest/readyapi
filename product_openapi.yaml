@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+  title: Product API
+  description: API for retrieving product details
+  version: 1.0.0
+
+servers:
+  - url: https://dummyjson.com
+
+paths:
+  /products/{id}:
+    get:
+      summary: Get product details
+      description: Retrieves product details based on the provided product ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The unique ID of the product.
+      responses:
+        "200":
+          description: Successfully retrieved product details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 5
+                  title:
+                    type: string
+                    example: "Red Nail Polish"
+                  description:
+                    type: string
+                    example: "The Red Nail Polish offers a rich and glossy red hue for vibrant and polished nails. With a quick-drying formula, it provides a salon-quality finish at home."
+                  category:
+                    type: string
+                    example: "beauty"
+                  price:
+                    type: number
+                    format: float
+                    example: 8.99
+                  discountPercentage:
+                    type: number
+                    format: float
+                    example: 2.46
+                  rating:
+                    type: number
+                    format: float
+                    example: 3.91
+                  stock:
+                    type: integer
+                    example: 71
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                    example: ["beauty", "nail polish"]
+                  brand:
+                    type: string
+                    example: "Nail Couture"
+                  sku:
+                    type: string
+                    example: "YUIIIP4W"
+                  weight:
+                    type: number
+                    example: 9
+                  dimensions:
+                    type: object
+                    properties:
+                      width:
+                        type: number
+                        example: 8.11
+                      height:
+                        type: number
+                        example: 10.89
+                      depth:
+                        type: number
+                        example: 29.06
+                  warrantyInformation:
+                    type: string
+                    example: "1 year warranty"
+                  shippingInformation:
+                    type: string
+                    example: "Ships in 1 week"
+                  availabilityStatus:
+                    type: string
+                    enum: ["In Stock", "Out of Stock", "Pre-Order"]
+                    example: "In Stock"
+                  reviews:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        rating:
+                          type: integer
+                          example: 5
+                        comment:
+                          type: string
+                          example: "Very pleased!"
+                        date:
+                          type: string
+                          format: date-time
+                          example: "2024-05-23T08:56:21.619Z"
+                        reviewerName:
+                          type: string
+                          example: "Leo Rivera"
+                        reviewerEmail:
+                          type: string
+                          format: email
+                          example: "leo.rivera@x.dummyjson.com"
+                  returnPolicy:
+                    type: string
+                    example: "No return policy"
+                  minimumOrderQuantity:
+                    type: integer
+                    example: 46
+                  meta:
+                    type: object
+                    properties:
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2024-05-23T08:56:21.619Z"
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: "2024-05-23T08:56:21.619Z"
+                      barcode:
+                        type: string
+                        example: "3212847902461"
+                      qrCode:
+                        type: string
+                        format: uri
+                        example: "https://assets.dummyjson.com/public/qr-code.png"
+                  images:
+                    type: array
+                    items:
+                      type: string
+                      format: uri
+                    example: ["https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/1.png"]
+                  thumbnail:
+                    type: string
+                    format: uri
+                    example: "https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/thumbnail.png"
+        "400":
+          description: Invalid request. The product ID is missing or incorrect.
+        "404":
+          description: Product not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Product with id '500' not found"
